@@ -90,7 +90,7 @@
                             created_at: response.body.created_at
                         });
                     }
-
+                    this.content = '';
                     // Alternative: undoes ordering after user has added new note.
                     //this.getNotes();
                 }, () => {

@@ -89,6 +89,7 @@
                             created_at: response.body.created_at
                         });
                     }
+                    this.title = '';
 
                     // Alternative: undoes ordering after user has added new notebook.
                     //this.getNotebooks();
