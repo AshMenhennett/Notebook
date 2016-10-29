@@ -8,18 +8,38 @@ use App\Http\Requests\NoteBookFormRequest;
 class NoteBookController extends Controller
 {
 
-    public function index(Request $request)
+    public function home(Request $request){
+        return view('notebooks.home');
+    }
+
+    /**
+     * Returns all notebooks as JSON
+     * @param  Request $request
+     * @return JSON
+     */
+    public function indexNotebooks(Request $request)
     {
         $notebooks = $request->user()->notebooks()->get();
 
-        return view('notebooks.index', [
-            'notebooks' => $notebooks,
-        ]);
+        return response()->json($notebooks, 200);
+    }
+
+    /**
+     * Returns all notes, given a notebook as JSON
+     * @param  Request $request
+     * @return JSON
+     */
+    public function indexNotebook(NoteBook $notebook)
+    {
+        $this->authorize('show', $notebook);
+
+        $notes = $notebook->notes()->get();
+
+        return response()->json($notes, 200);
     }
 
     public function create(NoteBookFormRequest $request)
     {
-
         $uid = uniqid(true);
 
         $request->user()->notebooks()->create([
@@ -27,26 +47,20 @@ class NoteBookController extends Controller
             'title' => $request->title,
         ]);
 
-        return redirect()->route('notebooks.index');
-
+        return response()->json($uid, 200);
     }
 
     public function show(NoteBook $notebook)
     {
-
         $this->authorize('show', $notebook);
-
-        $notes = $notebook->notes()->get();
 
         return view('notebooks.show', [
             'notebook' => $notebook,
-            'notes' => $notes,
         ]);
     }
 
     public function edit(NoteBook $notebook)
     {
-
         $this->authorize('edit', $notebook);
 
         return view('notebooks.edit', [
@@ -56,24 +70,22 @@ class NoteBookController extends Controller
 
     public function update(NoteBookFormRequest $request, NoteBook $notebook)
     {
-
         $this->authorize('edit', $notebook);
 
         $notebook->update([
             'title' => $request->title,
         ]);
 
-        return redirect()->route('notebooks.index');
+        return redirect()->route('notebooks.home');
     }
 
     public function destroy(NoteBook $notebook)
     {
-
         $this->authorize('delete', $notebook);
 
         $notebook->delete();
 
-        return redirect()->route('notebooks.index');
+        return response()->json(null, 200);
     }
 
 }

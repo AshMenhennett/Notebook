@@ -5767,6 +5767,15 @@ button.close {
     display: none !important; } }
 
 .list-group-item {
-  padding-bottom: 30px; }
+  padding-bottom: 20px;
+  text-align: center; }
+  .list-group-item a.notebook-title, .list-group-item p.note-content {
+    font-size: 1.65em; }
+  .list-group-item div.created-at {
+    font-size: 1.1em;
+    padding: 8px; }
+
+p[v-cloak] {
+  display: none; }
 
 /*# sourceMappingURL=app.css.map */

@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\User;
-use App\Note;
 use App\NoteBook;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

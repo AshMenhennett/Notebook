@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="{{ route('notebooks.index') }}">Get Started</a>
+                    <a href="{{ route('notebooks.home') }}">Get Started</a>
                 </div>
             </div>
         </div>

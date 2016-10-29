@@ -1,3 +1,11 @@
 .list-group-item {
-    padding-bottom: 30px;
+    padding-bottom: 20px;
+    text-align: center;
+    a.notebook-title, p.note-content{
+        font-size: 1.65em;
+    }
+    div.created-at {
+        font-size: 1.1em;
+        padding: 8px;
+    }
 }
