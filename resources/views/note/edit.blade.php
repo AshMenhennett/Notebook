@@ -21,6 +21,7 @@
                         </div>
                         {{ csrf_field() }}
                         <button type="submit" class="btn btn-default pull-right">Update</button>
+                        <a href="{{ route('notebooks.show', $notebook) }}" class="btn btn-default pull-right">Cancel</a>
                     </form>
                 </div>
 

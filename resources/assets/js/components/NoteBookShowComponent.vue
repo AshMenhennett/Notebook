@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading" >Your {{ notebookTitle }} Notebook</div>
+                    <div class="panel-heading" >Your {{ notebookTitle }} Notebook <a href="/notebooks" class="pull-right">Go back</a></div>
 
                     <div class="panel-body">
                         <div v-if="notes.length">
