@@ -78,14 +78,12 @@
                     if (this.orderedBy === 'asc') {
                         this.notebooks.push({
                             title: this.title,
-                            uid: response.body,
-                            created_at: response.body.created_at
+                            uid: response.body
                         });
                     } else {
                         this.notebooks.unshift({
                             title: this.title,
-                            uid: response.body,
-                            created_at: response.body.created_at
+                            uid: response.body
                         });
                     }
                     this.title = '';
@@ -99,9 +97,6 @@
             getNotebooks() {
                 this.$http.get('/notebooks/index').then((response) => {
                     this.notebooks = response.body;
-                    for (var i = 0; i < this.notebooks.length; i++) {
-                        this.notebooks[i].justCreated = false;
-                    }
                 });
             },
             order(notebooks) {

@@ -58,8 +58,7 @@
                 notes: [],
                 error: {
                     content: null
-                },
-                legalSubmission: false
+                }
             }
         },
         props: {
