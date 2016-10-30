@@ -28,15 +28,14 @@
 
                     <div class="panel-body">
                         <div v-if="notebooks.length">
-                            <button class="btn btn-default btn-sm pull-right" @click="order(notebooks)"><span v-bind:class="'glyphicon glyphicon-sort-by-attributes' + (orderedBy === 'asc' ? '-alt' : '')"></span> {{ (orderedBy === 'asc' ? 'Desc.' : 'Asc.') }}</button>
+                            <button class="btn btn-default btn-sm pull-right" @click="order(notebooks)"><span v-bind:class="'glyphicon glyphicon-sort-by-attributes' + (orderedBy === 'asc' ? '-alt' : '')"></span> {{ (orderedBy === 'asc' ? 'Newer' : 'Older') }}</button>
                             <br />
                             <br />
                             <ul class="list-group">
-                                <li class="list-group-item" v-for="notebook in notebooks">
+                                <li id="notebooks" class="list-group-item" v-for="notebook in notebooks">
                                     <a class="notebook-title" v-bind:href="'/notebooks/' + notebook.uid + '/show'">{{ notebook.title }}</a>
-                                    <div class="created-at">Created {{ moment(notebook.created_at).fromNow() }}</div>
-                                    <a v-bind:href="'/notebooks/' + notebook.uid + '/edit'" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-                                    <a href="#" @click.prevent="destroy(notebook.uid)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                                    <a v-bind:href="'/notebooks/' + notebook.uid + '/edit'" class="edit-link"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    <a href="#" @click.prevent="destroy(notebook.uid)" class="delete-link"><span class="glyphicon glyphicon-remove"></span></a>
                                 </li>
                             </ul>
                         </div>
@@ -100,14 +99,14 @@
             getNotebooks() {
                 this.$http.get('/notebooks/index').then((response) => {
                     this.notebooks = response.body;
+                    for (var i = 0; i < this.notebooks.length; i++) {
+                        this.notebooks[i].justCreated = false;
+                    }
                 });
             },
             order(notebooks) {
                 this.notebooks = reverse(notebooks);
                 this.orderedBy = (this.orderedBy === 'asc' ? 'desc' : 'asc');
-            },
-            moment(... args) {
-                return moment(... args);
             },
             reverse,
             destroy(uid) {

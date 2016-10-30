@@ -1,11 +1,30 @@
-.list-group-item {
-    padding-bottom: 20px;
+$charcoal: #525251;
+
+li.list-group-item {
+    padding-bottom: 8px;
     text-align: center;
-    a.notebook-title, p.note-content{
+    a.notebook-title {
         font-size: 1.65em;
     }
-    div.created-at {
-        font-size: 1.1em;
-        padding: 8px;
+    p.note-content {
+        font-size: 1.2em;
+    }
+    a.edit-link, a.delete-link {
+        position: absolute;
+        top: 14px;
+        font-size: 1.2em;
+        color: lighten($charcoal, 40%);
+        &:hover, &:focus {
+            color: $charcoal;
+        }
+    }
+    &#notes a.edit-link, &#notes a.delete-link{
+        top: 12px;
+    }
+    a.edit-link {
+        right: 36px;
+    }
+    a.delete-link {
+        right: 8px;
     }
 }

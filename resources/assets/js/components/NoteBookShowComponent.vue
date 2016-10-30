@@ -29,15 +29,11 @@
 
                     <div class="panel-body">
                         <div v-if="notes.length">
-                            <button class="btn btn-default btn-sm pull-right" @click="order(notes)"><span v-bind:class="'glyphicon glyphicon-sort-by-attributes' + (orderedBy === 'asc' ? '-alt' : '')"></span> {{ (orderedBy === 'asc' ? 'Desc.' : 'Asc.') }}</button>
-                            <br />
-                            <br />
                             <ul class="list-group">
-                                <li class="list-group-item" v-for="note in notes">
+                                <li id="notes" class="list-group-item" v-for="note in notes">
                                     <p class="note-content">{{ note.content }}</p>
-                                    <div class="created-at">Created {{ moment(note.created_at).fromNow() }}</div>
-                                    <a v-bind:href="'/notebooks/' + notebookUid + '/note/' + note.uid + '/edit'" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-                                    <a href="#" @click.prevent="destroy(note.uid)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                                    <a v-bind:href="'/notebooks/' + notebookUid + '/note/' + note.uid + '/edit'" class="edit-link"><span class="glyphicon glyphicon-pencil"></span></a>
+                                    <a href="#" @click.prevent="destroy(note.uid)" class="delete-link"><span class="glyphicon glyphicon-remove"></span></a>
                                 </li>
                             </ul>
                         </div>
@@ -63,7 +59,7 @@
                 error: {
                     content: null
                 },
-                orderedBy: 'asc'
+                legalSubmission: false
             }
         },
         props: {
@@ -75,21 +71,17 @@
                 return this.$http.post('/notebooks/' + this.notebookUid + '/note/create', {
                     content: this.content
                 }).then((response) => {
+                    // user can add an additional note to view by clicking the Add button straight after successful post is made.
+                    // Not going to implement check, as not really a security problem, mainly a UI/UX issue. Note, the second 'submission'
+                    // does not make it to the database, only adds to the client notes array below.
+
                     // If user adds item and, clicks on note and then clicks back button in browser, new note is absent until user refreshes browser.
-                    // add to either top or bottom of array, depending on user selected ordering
-                    if (this.orderedBy === 'asc') {
-                        this.notes.push({
-                            content: this.content,
-                            uid: response.body,
-                            created_at: response.body.created_at
-                        });
-                    } else {
-                        this.notes.unshift({
-                            content: this.content,
-                            uid: response.body,
-                            created_at: response.body.created_at
-                        });
-                    }
+                    // add to top of array
+                    this.notes.push({
+                        content: this.content,
+                        uid: response.body
+                    });
+
                     this.content = '';
                     // Alternative: undoes ordering after user has added new note.
                     //this.getNotes();
@@ -101,13 +93,6 @@
                 this.$http.get('/notebooks/' + this.notebookUid + '/index').then((response) => {
                     this.notes = response.body;
                 });
-            },
-            order(notes) {
-                this.notes = reverse(notes);
-                this.orderedBy = (this.orderedBy === 'asc' ? 'desc' : 'asc');
-            },
-            moment(... args) {
-                return moment(... args);
             },
             reverse,
             destroy(uid) {

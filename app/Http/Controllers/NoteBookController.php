@@ -8,7 +8,8 @@ use App\Http\Requests\NoteBookFormRequest;
 class NoteBookController extends Controller
 {
 
-    public function home(Request $request){
+    public function home(Request $request)
+    {
         return view('notebooks.home');
     }
 
@@ -19,7 +20,7 @@ class NoteBookController extends Controller
      */
     public function indexNotebooks(Request $request)
     {
-        $notebooks = $request->user()->notebooks()->get();
+        $notebooks = $request->user()->notebooks()->orderBy('created_at', 'asc')->get();
 
         return response()->json($notebooks, 200);
     }
@@ -33,7 +34,7 @@ class NoteBookController extends Controller
     {
         $this->authorize('show', $notebook);
 
-        $notes = $notebook->notes()->get();
+        $notes = $notebook->notes()->orderBy('created_at', 'asc')->get();
 
         return response()->json($notes, 200);
     }

@@ -13,10 +13,10 @@ class CreateNotebooksTable extends Migration
      */
     public function up()
     {
-        Schema::create('notebooks', function (Blueprint $table) {
+        Schema::create('note_books', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('uid')->unsigned();
+            $table->string('uid');
             $table->string('title');
             $table->softDeletes();
             $table->timestamps();
@@ -32,6 +32,6 @@ class CreateNotebooksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notebooks');
+        Schema::dropIfExists('note_books');
     }
 }
