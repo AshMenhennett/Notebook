@@ -5778,7 +5778,7 @@ li.list-group-item {
     top: 14px;
     font-size: 1.2em;
     color: #b8b8b7; }
-    li.list-group-item a.edit-link:hover, li.list-group-item a.edit-link:focus, li.list-group-item a.delete-link:hover, li.list-group-item a.delete-link:focus {
+    li.list-group-item a.edit-link:hover, li.list-group-item a.delete-link:hover {
       color: #525251; }
   li.list-group-item#notes a.edit-link, li.list-group-item#notes a.delete-link {
     top: 12px; }

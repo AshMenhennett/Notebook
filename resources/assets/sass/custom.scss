@@ -14,7 +14,7 @@ li.list-group-item {
         top: 14px;
         font-size: 1.2em;
         color: lighten($charcoal, 40%);
-        &:hover, &:focus {
+        &:hover {
             color: $charcoal;
         }
     }

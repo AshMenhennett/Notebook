@@ -28,7 +28,7 @@
 
                     <div class="panel-body">
                         <div v-if="notebooks.length">
-                            <button class="btn btn-default btn-sm pull-right" @click="order(notebooks)"><span v-bind:class="'glyphicon glyphicon-sort-by-attributes' + (orderedBy === 'asc' ? '-alt' : '')"></span> {{ (orderedBy === 'asc' ? 'Newer' : 'Older') }}</button>
+                            <button class="btn btn-default btn-sm pull-right" @click="order(notebooks)"><span v-bind:class="'glyphicon glyphicon-sort-by-attributes' + (orderedBy === 'desc' ? '-alt' : '')"></span> {{ (orderedBy === 'asc' ? 'Older' : 'Newer') }}</button>
                             <br />
                             <br />
                             <ul class="list-group">
