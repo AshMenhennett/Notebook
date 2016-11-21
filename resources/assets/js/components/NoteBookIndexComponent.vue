@@ -28,7 +28,7 @@
 
                     <div class="panel-body">
                         <div v-if="notebooks.length">
-                            <button class="btn btn-default btn-sm pull-right" @click="order(notebooks)"><span v-bind:class="'glyphicon glyphicon-sort-by-attributes' + (orderedBy === 'desc' ? '-alt' : '')"></span> {{ (orderedBy === 'asc' ? 'Older' : 'Newer') }}</button>
+                            <button class="btn btn-default btn-sm pull-right" @click="order(notebooks)"><span v-bind:class="'glyphicon glyphicon-sort-by-attributes' + (orderedBy === 'desc' ? '' : '-alt')"></span> {{ (orderedBy === 'asc' ? 'Newest' : 'Oldest') }}</button>
                             <br />
                             <br />
                             <ul class="list-group">
@@ -65,9 +65,6 @@
                 orderedBy: 'asc'
             }
         },
-        props: {
-
-        },
         methods: {
             create() {
                 return this.$http.post('/notebooks/create', {
@@ -103,13 +100,11 @@
                 this.notebooks = reverse(notebooks);
                 this.orderedBy = (this.orderedBy === 'asc' ? 'desc' : 'asc');
             },
-            reverse,
             destroy(uid) {
-                this.$http.delete('/notebooks/' + uid + '/delete').then((response) => {
-                    this.getNotebooks();
-                }, () => {
-                    console.log('error');
-                });
+                for (var i = 0; i < this.notebooks.length; i++) {
+                    (this.notebooks[i].uid === uid) ? this.notebooks.splice(i, 1) : false;
+                }
+                this.$http.delete('/notebooks/' + uid + '/delete');
             }
         },
         mounted () {

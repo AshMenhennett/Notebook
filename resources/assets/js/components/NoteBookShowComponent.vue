@@ -62,6 +62,7 @@
             }
         },
         props: {
+            // could simplfy props to just one Notebook object, insead of two seperate Notebook properties
             notebookUid: null,
             notebookTitle: null
         },
@@ -72,7 +73,7 @@
                 }).then((response) => {
                     // user can add an additional note to view by clicking the Add button straight after successful post is made.
                     // Not going to implement check, as not really a security problem, mainly a UI/UX issue. Note, the second 'submission'
-                    // does not make it to the database, only adds to the client notes array below.
+                    // makes it to the database, but does not get pushed to the array. User sees second submission on reload.
 
                     // If user adds item and, clicks on note and then clicks back button in browser, new note is absent until user refreshes browser.
                     // add to top of array
@@ -82,8 +83,6 @@
                     });
 
                     this.content = '';
-                    // Alternative: undoes ordering after user has added new note.
-                    //this.getNotes();
                 }, () => {
                     this.error.content = true;
                 });
@@ -93,13 +92,11 @@
                     this.notes = response.body;
                 });
             },
-            reverse,
             destroy(uid) {
-                this.$http.delete('/notebooks/' + this.notebookUid + '/note/' + uid + '/delete').then((response) => {
-                    this.getNotes();
-                }, () => {
-                    console.log('error');
-                });
+                for (var i = 0; i < this.notes.length; i++) {
+                    (this.notes[i].uid === uid) ? this.notes.splice(i, 1) : false;
+                }
+                this.$http.delete('/notebooks/' + this.notebookUid + '/note/' + uid + '/delete');
             }
         },
         mounted () {
