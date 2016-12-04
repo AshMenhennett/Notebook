@@ -47,7 +47,7 @@ class NoteController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->route('notebooks.show', [
+        return redirect()->route('notebook.show', [
             'notebook' => $notebook,
         ]);
     }

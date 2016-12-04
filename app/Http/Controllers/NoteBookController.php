@@ -55,7 +55,7 @@ class NoteBookController extends Controller
     {
         $this->authorize('show', $notebook);
 
-        return view('notebooks.show', [
+        return view('notebook.show', [
             'notebook' => $notebook,
         ]);
     }
@@ -64,7 +64,7 @@ class NoteBookController extends Controller
     {
         $this->authorize('edit', $notebook);
 
-        return view('notebooks.edit', [
+        return view('notebook.edit', [
             'notebook' => $notebook,
         ]);
     }

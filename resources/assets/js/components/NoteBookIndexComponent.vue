@@ -8,7 +8,7 @@
 
                         <div v-bind:class="'form-group' + (error.title !== null ? ' has-error' : '')">
                             <label for="title">Create a new Notebook</label>
-                            <input type="text" class="form-control" id="title" v-model="title" placeholder="Name your new notebook">
+                            <input type="text" class="form-control" id="title" v-model="title" @keyup.enter="create" placeholder="Name your new notebook">
                             <div class="help-block" v-if="error.title">
                                 You must supply a title for your notebook.
                             </div>
@@ -28,14 +28,14 @@
 
                     <div class="panel-body">
                         <div v-if="notebooks.length">
-                            <button class="btn btn-default btn-sm pull-right" @click="order(notebooks)"><span v-bind:class="'glyphicon glyphicon-sort-by-attributes' + (orderedBy === 'desc' ? '' : '-alt')"></span> {{ (orderedBy === 'asc' ? 'Newest' : 'Oldest') }}</button>
+                            <button class="btn btn-default btn-sm pull-right" @click="order()"><span v-bind:class="'glyphicon glyphicon-sort-by-attributes' + (orderedBy === 'desc' ? '' : '-alt')"></span> {{ (orderedBy === 'asc' ? 'Newest' : 'Oldest') }}</button>
                             <br />
                             <br />
                             <ul class="list-group">
-                                <li id="notebooks" class="list-group-item" v-for="notebook in notebooks">
+                                <li id="notebooks" class="list-group-item" v-for="(notebook, index) in notebooks">
                                     <a class="notebook-title" v-bind:href="'/notebooks/' + notebook.uid + '/show'">{{ notebook.title }}</a>
                                     <a v-bind:href="'/notebooks/' + notebook.uid + '/edit'" class="edit-link"><span class="glyphicon glyphicon-pencil"></span></a>
-                                    <a href="#" @click.prevent="destroy(notebook.uid)" class="delete-link"><span class="glyphicon glyphicon-remove"></span></a>
+                                    <a href="#" @click.prevent="destroy(index, notebook.uid)" class="delete-link"><span class="glyphicon glyphicon-remove"></span></a>
                                 </li>
                             </ul>
                         </div>
@@ -52,7 +52,6 @@
 </template>
 
 <script>
-    import {reverse} from '../filters.js'
     export default {
 
         data() {
@@ -84,9 +83,6 @@
                         });
                     }
                     this.title = '';
-
-                    // Alternative: undoes ordering after user has added new notebook.
-                    //this.getNotebooks();
                 }, () => {
                     this.error.title = true;
                 });
@@ -96,14 +92,12 @@
                     this.notebooks = response.body;
                 });
             },
-            order(notebooks) {
-                this.notebooks = reverse(notebooks);
+            order() {
+                this.notebooks.reverse();
                 this.orderedBy = (this.orderedBy === 'asc' ? 'desc' : 'asc');
             },
-            destroy(uid) {
-                for (var i = 0; i < this.notebooks.length; i++) {
-                    (this.notebooks[i].uid === uid) ? this.notebooks.splice(i, 1) : false;
-                }
+            destroy(index, uid) {
+                this.notebooks.splice(index, 1);
                 this.$http.delete('/notebooks/' + uid + '/delete');
             }
         },
