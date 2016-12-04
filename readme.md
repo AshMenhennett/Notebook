@@ -4,7 +4,7 @@ This is a repository for a simple Notebook app that I created while learning Lar
 
 Feel free to take a look around the codebase.
 
-##Feautures
+##Functionality
 - Users can register and create ```Notebook```s, which contain ```Note```s.
 - Each ```Notebook``` can have many ```Note```s.
 - Each ```Note``` belongs to only one ```Notebook```.
