@@ -20,25 +20,24 @@ class NoteBookPolicy
         //
     }
 
-    public function show(User $user, NoteBook $notebook)
+    public function show (User $user, NoteBook $notebook)
     {
         return $user->id === $notebook->user_id;
     }
 
-    public function edit(User $user, NoteBook $notebook)
+    public function edit (User $user, NoteBook $notebook)
     {
         return $user->id === $notebook->user_id;
     }
 
-    public function update(User $user, NoteBook $notebook)
+    public function update (User $user, NoteBook $notebook)
     {
         return $user->id === $notebook->user_id;
     }
 
-    public function delete(User $user, NoteBook $notebook)
+    public function delete (User $user, NoteBook $notebook)
     {
         return $user->id === $notebook->user_id;
     }
-
 
 }

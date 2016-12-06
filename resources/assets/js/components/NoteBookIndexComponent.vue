@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" v-if="loaded">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default" v-cloak>
                     <div class="panel-heading">Your Notebooks</div>
@@ -56,6 +56,7 @@
 
         data() {
             return {
+                loaded: false,
                 title: null,
                 notebooks: [],
                 error: {
@@ -90,6 +91,7 @@
             getNotebooks() {
                 this.$http.get('/notebooks/index').then((response) => {
                     this.notebooks = response.body;
+                    this.loaded = true;
                 });
             },
             order() {

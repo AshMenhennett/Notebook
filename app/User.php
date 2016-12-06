@@ -27,14 +27,24 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Each User has many NoteBook instances.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\hasMany
+     */
     public function notebooks()
     {
-        return $this->hasMany(NoteBook::Class);
+        return $this->hasMany(NoteBook::class);
     }
 
+    /**
+     * Each User has many Note instances, through a NoteBook
+     *
+     * @return Illuminate\Database\Eloquent\Relations\hasManyThrough
+     */
     public function notes()
     {
-        return $this->hasManyThrough(Note::class, NoteBook::Class);
+        return $this->hasManyThrough(Note::class, NoteBook::class);
     }
 
 

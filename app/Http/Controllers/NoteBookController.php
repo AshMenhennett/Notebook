@@ -7,16 +7,23 @@ use Illuminate\Http\Request;
 use App\Http\Requests\NoteBookFormRequest;
 class NoteBookController extends Controller
 {
-
-    public function home(Request $request)
+    /**
+     * Displays NoteBookIndexComponent Vue component,
+     * which, in turn, utilizes indexNotebooks (Request $request).
+     *
+     * @return Illuminate\Http\Response
+     */
+    public function home ()
     {
         return view('notebooks.home');
     }
 
     /**
-     * Returns all notebooks as JSON
-     * @param  Request $request
-     * @return JSON
+     * Returns all notebooks that belong to a User as JSON.
+     * Used by NoteBookIndexComponent Vue component.
+     *
+     * @param  Illuminate\Http\Request $request
+     * @return Illuminate\Http\Response
      */
     public function indexNotebooks(Request $request)
     {
@@ -26,9 +33,10 @@ class NoteBookController extends Controller
     }
 
     /**
-     * Returns all notes, given a notebook as JSON
-     * @param  Request $request
-     * @return JSON
+     * Returns all notes, belonging to a Notebook as JSON.
+     * Used by NoteBookShowComponent Vue component.
+     *
+     * @return Illuminate\Http\Response
      */
     public function indexNotebook(NoteBook $notebook)
     {
@@ -39,6 +47,13 @@ class NoteBookController extends Controller
         return response()->json($notes, 200);
     }
 
+    /**
+     * Creates a new Notebook and returns the uiq for the new Notebook and a status code.
+     * Used by NoteBookIndexComponent Vue component.
+     *
+     * @param  App\Http\Requests\NoteBookFormRequest $request
+     * @return Illuminate\Http\Response
+     */
     public function create(NoteBookFormRequest $request)
     {
         $uid = uniqid(true);
@@ -51,6 +66,13 @@ class NoteBookController extends Controller
         return response()->json($uid, 200);
     }
 
+    /**
+     * Displays NoteBookShowComponent Vue component,
+     * which in turn utilizes indexNotebook (Notebook $notebook).
+     *
+     * @param  App\NoteBook $notebook
+     * @return Illuminate\Http\Response
+     */
     public function show(NoteBook $notebook)
     {
         $this->authorize('show', $notebook);
@@ -60,6 +82,12 @@ class NoteBookController extends Controller
         ]);
     }
 
+    /**
+     * Displays form to edit a Notebook.
+     *
+     * @param  App\NoteBook $notebook
+     * @return Illuminate\Http\Response
+     */
     public function edit(NoteBook $notebook)
     {
         $this->authorize('edit', $notebook);
@@ -69,9 +97,16 @@ class NoteBookController extends Controller
         ]);
     }
 
+    /**
+     * Updates a Notebook.
+     *
+     * @param  App\NoteBookFormRequest $request
+     * @param  App\NoteBook            $notebook
+     * @return Illuminate\Http\Response
+     */
     public function update(NoteBookFormRequest $request, NoteBook $notebook)
     {
-        $this->authorize('edit', $notebook);
+        $this->authorize('update', $notebook);
 
         $notebook->update([
             'title' => $request->title,
@@ -80,6 +115,13 @@ class NoteBookController extends Controller
         return redirect()->route('notebooks.home');
     }
 
+    /**
+     * Deletes a Notebook.
+     * Use by NoteBookIndexComponent Vue component.
+     *
+     * @param  App\NoteBook $notebook
+     * @return Illuminate\Http\Response
+     */
     public function destroy(NoteBook $notebook)
     {
         $this->authorize('delete', $notebook);

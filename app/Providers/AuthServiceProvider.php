@@ -6,7 +6,6 @@ use App\Note;
 use App\NoteBook;
 use App\Policies\NotePolicy;
 use App\Policies\NoteBookPolicy;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -29,10 +28,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        // Gate::define('create-note', function ($user, $notebook) {
-        //     return $user->id === $notebook->user_id;
-        // });
-        //
     }
 }

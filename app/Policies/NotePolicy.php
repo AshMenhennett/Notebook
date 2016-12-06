@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\User;
-use App\NoteBook;
+use App\Note;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class NotePolicy
@@ -20,23 +20,26 @@ class NotePolicy
         //
     }
 
-    public function create(User $user, NoteBook $notebook)
+    /**
+     * Would be more convenient to use NoteBook as param instead of Note, but to
+     * make this Policy associate with the correct model, Note, we must pass in Notes.
+     *
+     * Alternative option, simply relying on the NoteBookPolicy, as the logic and params are the same,
+     * but seperating the different model's logic is a good idea.
+     */
+
+    public function edit (User $user, Note $note)
     {
-        return $user->id === $notebook->user_id;
+        return $user->id === $note->notebook()->first()->user()->first()->id;
     }
 
-    public function edit(User $user, NoteBook $notebook)
+    public function update (User $user, Note $note)
     {
-        return $user->id === $notebook->user_id;
+        return $user->id === $note->notebook()->first()->user()->first()->id;
     }
 
-    public function update(User $user, NoteBook $notebook)
+    public function delete (User $user, Note $note)
     {
-        return $user->id === $notebook->user_id;
-    }
-
-    public function delete(User $user, NoteBook $notebook)
-    {
-        return $user->id === $notebook->user_id;
+        return $user->id === $note->notebook()->first()->user()->first()->id;
     }
 }

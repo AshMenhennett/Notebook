@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" v-if="loaded">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading" >Your {{ notebook.title }} Notebook <a href="/notebooks" class="pull-right">Go back</a></div>
@@ -52,6 +52,7 @@
     export default {
         data() {
             return {
+                loaded: false,
                 content: null,
                 notes: [],
                 error: {
@@ -82,6 +83,7 @@
             getNotes() {
                 this.$http.get('/notebooks/' + this.notebook.uid + '/index').then((response) => {
                     this.notes = response.body;
+                    this.loaded = true;
                 });
             },
             destroy(index, uid) {

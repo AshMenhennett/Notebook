@@ -5,18 +5,27 @@ namespace App\Http\Controllers;
 use App\Note;
 use App\NoteBook;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\NoteFormRequest;
 
 class NoteController extends Controller
 {
-
+    /**
+     * Create a Note.
+     * Used by NoteBookShowComponent Vue component.
+     *
+     * @param  App\Http\Requests\NoteFormRequest $request
+     * @param  App\Notebook                      $notebook
+     * @return Illuminate\Http\Response
+     */
     public function create(NoteFormRequest $request, NoteBook $notebook)
     {
-        // check if doesn't own notebook, if they don't, let's return.
-        // wouldn't work with authorization, passing in the current $notebook..
-        if ($request->user()->id !== $notebook->user_id) {
-            return;
+        // policy nor gates work here.. policy won't work because Laravel is associating the
+        // NoteBook class with the NoteBookPolicy so when I pass in an instance of Notebook
+        // as a param to the authorize() helper in the Note class, it is using the NoteBookPolicy, rather than NotePolicy.
+        // Not sure why Gates aren't working here..
+        // This is the only way of currently 'authorizing' this action- creating a Note
+        if (! $request->user()->id === $notebook->user_id) {
+            abort(403);
         }
 
         $uid = uniqid(true);
@@ -29,9 +38,16 @@ class NoteController extends Controller
         return response()->json($uid, 200);
     }
 
+    /**
+     * Displays for for editing a Note.
+     *
+     * @param  App\NoteBook $notebook
+     * @param  App\Note     $note
+     * @return Illuminate\Http\Response
+     */
     public function edit(NoteBook $notebook, Note $note)
     {
-        $this->authorize('edit', $notebook);
+       $this->authorize('edit', $note);
 
         return view('note.edit', [
             'notebook' => $notebook,
@@ -39,9 +55,17 @@ class NoteController extends Controller
         ]);
     }
 
+    /**
+     * Updates the Note.
+     *
+     * @param  Illuminate\Http\NoteFormRequest  $request
+     * @param  App\NoteBook                     $notebook
+     * @param  App\Note                         $note
+     * @return Illuminate\Http\Response
+     */
     public function update(NoteFormRequest $request, NoteBook $notebook, Note $note)
     {
-        $this->authorize('update', $notebook);
+        $this->authorize('update', $note);
 
         $note->update([
             'content' => $request->content,
@@ -52,9 +76,17 @@ class NoteController extends Controller
         ]);
     }
 
+    /**
+     * Deletes a Note.
+     * Used by NoteBookShowComponent Vue component.
+     *
+     * @param  App\NoteBook $notebook
+     * @param  App\Note     $note
+     * @return Illuminate\Http\Response
+     */
     public function destroy(NoteBook $notebook, Note $note)
     {
-        $this->authorize('delete', $notebook);
+        $this->authorize('delete', $note);
 
         $note->delete();
 
