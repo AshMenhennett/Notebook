@@ -11,7 +11,7 @@ class NoteController extends Controller
 {
     /**
      * Create a Note.
-     * Used by NoteBookShowComponent Vue component.
+     * Utilized by NoteBookShowComponent Vue component.
      *
      * @param  App\Http\Requests\NoteFormRequest $request
      * @param  App\Notebook                      $notebook
@@ -19,7 +19,7 @@ class NoteController extends Controller
      */
     public function create(NoteFormRequest $request, NoteBook $notebook)
     {
-        // policy nor gates work here.. policy won't work because Laravel is associating the
+        // policy nor gates work here.. e.g. $this->authorize('create', $notebook). policy won't work because Laravel is associating the
         // NoteBook class with the NoteBookPolicy so when I pass in an instance of Notebook
         // as a param to the authorize() helper in the Note class, it is using the NoteBookPolicy, rather than NotePolicy.
         // Not sure why Gates aren't working here..
@@ -39,7 +39,7 @@ class NoteController extends Controller
     }
 
     /**
-     * Displays for for editing a Note.
+     * Displays populated form for editing a Note.
      *
      * @param  App\NoteBook $notebook
      * @param  App\Note     $note
@@ -56,7 +56,7 @@ class NoteController extends Controller
     }
 
     /**
-     * Updates the Note.
+     * Updates a Note.
      *
      * @param  Illuminate\Http\NoteFormRequest  $request
      * @param  App\NoteBook                     $notebook
@@ -78,7 +78,7 @@ class NoteController extends Controller
 
     /**
      * Deletes a Note.
-     * Used by NoteBookShowComponent Vue component.
+     * Utilized by NoteBookShowComponent Vue component.
      *
      * @param  App\NoteBook $notebook
      * @param  App\Note     $note

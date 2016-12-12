@@ -8,8 +8,7 @@ use App\Http\Requests\NoteBookFormRequest;
 class NoteBookController extends Controller
 {
     /**
-     * Displays NoteBookIndexComponent Vue component,
-     * which, in turn, utilizes indexNotebooks (Request $request).
+     * Displays notebooks (NoteBookIndexComponent Vue component).
      *
      * @return Illuminate\Http\Response
      */
@@ -19,8 +18,8 @@ class NoteBookController extends Controller
     }
 
     /**
-     * Returns all notebooks that belong to a User as JSON.
-     * Used by NoteBookIndexComponent Vue component.
+     * Returns all notebooks that belong to a User.
+     * Utilized by NoteBookIndexComponent Vue component.
      *
      * @param  Illuminate\Http\Request $request
      * @return Illuminate\Http\Response
@@ -33,8 +32,8 @@ class NoteBookController extends Controller
     }
 
     /**
-     * Returns all notes, belonging to a Notebook as JSON.
-     * Used by NoteBookShowComponent Vue component.
+     * Returns all notes, belonging to a Notebook.
+     * Utilized by NoteBookShowComponent Vue component.
      *
      * @return Illuminate\Http\Response
      */
@@ -48,8 +47,8 @@ class NoteBookController extends Controller
     }
 
     /**
-     * Creates a new Notebook and returns the uiq for the new Notebook and a status code.
-     * Used by NoteBookIndexComponent Vue component.
+     * Creates a new Notebook and returns the uiq for the new Notebook.
+     * Utilized by NoteBookIndexComponent Vue component.
      *
      * @param  App\Http\Requests\NoteBookFormRequest $request
      * @return Illuminate\Http\Response
@@ -67,8 +66,7 @@ class NoteBookController extends Controller
     }
 
     /**
-     * Displays NoteBookShowComponent Vue component,
-     * which in turn utilizes indexNotebook (Notebook $notebook).
+     * Displays notes that belong to a Notebook (NoteBookShowComponent Vue component).
      *
      * @param  App\NoteBook $notebook
      * @return Illuminate\Http\Response
@@ -83,7 +81,7 @@ class NoteBookController extends Controller
     }
 
     /**
-     * Displays form to edit a Notebook.
+     * Displays populated form to edit a Notebook.
      *
      * @param  App\NoteBook $notebook
      * @return Illuminate\Http\Response
@@ -117,7 +115,7 @@ class NoteBookController extends Controller
 
     /**
      * Deletes a Notebook.
-     * Use by NoteBookIndexComponent Vue component.
+     * Utilized by NoteBookIndexComponent Vue component.
      *
      * @param  App\NoteBook $notebook
      * @return Illuminate\Http\Response

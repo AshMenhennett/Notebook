@@ -12,7 +12,7 @@
                     <form action="{{ route('note.update', [$notebook, $note]) }}" method="post">
                         <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
                             <label for="content">Update note</label>
-                            <input type="text" class="form-control" id="content" name="content" value="{{ $note->content }}">
+                            <input type="text" class="form-control" id="content" name="content" value="{{ old('content') ? old('content') : $note->content }}">
                             @if ($errors->has('content'))
                                 <div class="help-block">
                                     {{ $errors->first('content') }}

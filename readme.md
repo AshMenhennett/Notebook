@@ -17,6 +17,10 @@ Feel free to take a look around the codebase.
 ###Creating Notes
 ![Creating Notes](https://cloud.githubusercontent.com/assets/9494635/20865417/07f28d74-ba61-11e6-9bd4-feb5df267a49.PNG)
 
+##Routes
+![Routes](https://cloud.githubusercontent.com/assets/9494635/21092565/1e5968d4-c09d-11e6-9cbd-5e99d90aa055.PNG)
+Thanks to [Pretty Routes](https://github.com/garygreen/pretty-routes)
+
 ## Installation & Configuration
 If you would like to install this project, treat it as you would any other Laravel application.
 *Make sure you set the ```APP_ENV``` environment variable to ```production``` when the app is on a live sever, to force HTTPS connections on all routes.*
