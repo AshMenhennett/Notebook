@@ -9,7 +9,12 @@ Feel free to take a look around the codebase.
 - Vue has been used to implement a reactive UI for viewing, creating and deleting ```Notebook```s and ```Note```s.
 
 ## Installation & Configuration
-If you would like to install this project, treat it as you would any other Laravel application: Clone the repo, run ```composer install```, run ```npm install```, configure ```.env```, generate application key, run ```php artisan migrate```.
+If you would like to install this project, treat it as you would any other Laravel application:
+- Clone the repo.
+- Install dependencies: ```composer install``` (also, ```npm install```, if you need).
+- Configure environment variables- ```.env```.
+- Generate application key ```php artisan key:generate```.
+- Run Laravel migrations- ```php artisan migrate```.
 *Make sure you set the ```APP_ENV``` environment variable to ```production``` when the app is on a live sever, to force HTTPS connections on all routes.*
 
 
