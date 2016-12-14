@@ -15,6 +15,7 @@ If you would like to install this project, treat it as you would any other Larav
 - Configure environment variables- ```.env```.
 - Generate application key ```php artisan key:generate```.
 - Run Laravel migrations- ```php artisan migrate```.
+
 *Make sure you set the ```APP_ENV``` environment variable to ```production``` when the app is on a live sever, to force HTTPS connections on all routes.*
 
 
