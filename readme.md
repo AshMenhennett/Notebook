@@ -16,8 +16,8 @@ If you would like to install this project, treat it as you would any other Larav
 - Generate application key ```php artisan key:generate```.
 - Run Laravel migrations- ```php artisan migrate```.
 
-*Make sure you set the ```APP_ENV``` environment variable to ```production``` when the app is on a live sever, to force HTTPS connections on all routes.*
-
+Further steps:
+- Set the ```APP_ENV``` environment variable to ```production``` when the app is on a live sever, to force HTTPS connections on all routes.
 
 ##Screenshots
 ###Creatings Notebooks
@@ -29,3 +29,6 @@ If you would like to install this project, treat it as you would any other Larav
 ##Routes
 ![Routes](https://cloud.githubusercontent.com/assets/9494635/21092565/1e5968d4-c09d-11e6-9cbd-5e99d90aa055.PNG)
 Thanks to [Pretty Routes](https://github.com/garygreen/pretty-routes)
+
+##License
+[MIT](https://s3-ap-southeast-2.amazonaws.com/ashleymenhennett/LICENSE)
