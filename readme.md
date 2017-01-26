@@ -13,8 +13,8 @@ If you would like to install this project, treat it as you would any other Larav
 - Clone the repo.
 - Install dependencies: ```composer install``` (also, ```npm install```, if you need).
 - Configure environment variables- ```.env```.
-- Generate application key ```php artisan key:generate```.
-- Run Laravel migrations- ```php artisan migrate```.
+- Generate application key: ```php artisan key:generate```.
+- Run Laravel migrations: ```php artisan migrate```.
 
 Further steps:
 - Set the ```APP_ENV``` environment variable to ```production``` when the app is on a live sever, to force HTTPS connections on all routes.
